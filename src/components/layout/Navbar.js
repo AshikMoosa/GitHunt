@@ -10,7 +10,7 @@ class Navbar extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   static defaultProps = {
-    title: "GithubFinder",
+    title: "GitHunt",
   };
   handleClick() {
     this.setState((prevState) => ({
