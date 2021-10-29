@@ -2,27 +2,25 @@ import axios from "axios";
 import { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-import Alert from "./components/layout/Alert";
 import Home from "./components/pages/Home";
-import UserItem from "./components/users/UserItem";
 import Users from "./components/users/Users";
 import User from "./components/users/User";
 import "./styles/App.scss";
+import Search from "./components/jobs/Search";
+import JobItem from "./components/jobs/JobItem";
+import Location from "./components/jobs/Location";
+import Job from "./components/jobs/Job";
+import Jobs from "./components/jobs/Jobs";
 
 class App extends Component {
   state = {
     users: [],
     user: {},
+    repos: [],
+    jobs: [],
     loading: false,
     alert: null,
   };
-  // async componentDidMount() {
-  //   this.setState({ loading: true });
-  //   const res = await axios.get(
-  //     `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //   );
-  //   this.setState({ users: res.data, loading: false });
-  // }
 
   //Search Users
   searchUsers = async (text) => {
@@ -42,6 +40,15 @@ class App extends Component {
     this.setState({ user: res.data, loading: false });
   };
 
+  //Get single user repos
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+    this.setState({ repos: res.data, loading: false });
+  };
+
   //Clear Users
   clearUsers = () => {
     this.setState({ users: [], loading: false });
@@ -53,8 +60,18 @@ class App extends Component {
     setTimeout(() => this.setState({ alert: null }), 5000);
   };
 
+  //search Jobs
+  searchJobs = async (title) => {
+    // console.log(title);
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=${title}&content-type=application/json`
+    );
+    this.setState({ jobs: res.data.results, loading: false });
+  };
+
   render() {
-    const { users, loading, user, alert } = this.state;
+    const { users, loading, user, alert, repos } = this.state;
     return (
       <Router>
         <div className="App">
@@ -83,11 +100,24 @@ class App extends Component {
                 <User
                   {...props}
                   getUser={this.getUser}
+                  getUserRepos={this.getUserRepos}
                   user={user}
                   loading={loading}
+                  repos={repos}
                 />
               )}
             />
+            <Route
+              exact
+              path="/jobs"
+              render={(props) => (
+                <>
+                  <Search searchJobs={this.searchJobs} />
+                  <Jobs loading={loading} jobs={this.state.jobs} />
+                </>
+              )}
+            />
+            <Route exact path="/jobs/info" component={Job} />
           </Switch>
         </div>
       </Router>

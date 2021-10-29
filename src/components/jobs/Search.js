@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from "react";
-import UserImage from "../../images/user.jpg";
+import JobsImage from "../../images/jobs.png";
 class Search extends Component {
   state = {
     text: "",
   };
+  // componentDidMount() {
+  //   this.props.searchJobs(this.props.match.params.results);
+  // }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -12,7 +15,7 @@ class Search extends Component {
     if (this.state.text === "") {
       this.props.setAlert("Please enter something", "light");
     } else {
-      this.props.searchUsers(this.state.text);
+      this.props.searchJobs(this.state.text);
       this.setState({ text: "" });
     }
   };
@@ -22,7 +25,7 @@ class Search extends Component {
       <Fragment>
         <img
           style={{ width: "100%", height: "180px" }}
-          src={UserImage}
+          src={JobsImage}
           alt="User Background.."
         />
 
@@ -40,7 +43,7 @@ class Search extends Component {
           <input
             type="text"
             name="text"
-            placeholder="Search Users..."
+            placeholder="Search title, companies, expertise or benefits"
             className="input input-search"
             value={this.state.text}
             onChange={this.onChange}
@@ -59,11 +62,11 @@ class Search extends Component {
             }}
           />
         </form>
-        {this.props.showClear && (
+        {/* {this.props.showClear && (
           <button className="btn-clear" onClick={this.props.clearUsers}>
             Clear
           </button>
-        )}
+        )} */}
       </Fragment>
     );
   }

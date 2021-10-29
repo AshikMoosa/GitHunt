@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import Repos from "../repos/Repos";
 
 class User extends Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
   render() {
     const {
@@ -24,7 +26,7 @@ class User extends Component {
       public_gists,
       hireable,
     } = this.props.user;
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
 
     if (loading) return <Spinner />;
     return (
@@ -99,6 +101,9 @@ class User extends Component {
             Public Repos: {public_repos}
           </div>
           <div className="badge badge-dark">Public Gists: {public_gists}</div>
+        </div>
+        <div className="grid-2">
+          <Repos repos={repos} />
         </div>
       </Fragment>
     );

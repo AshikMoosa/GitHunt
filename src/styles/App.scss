@@ -41,12 +41,12 @@ ul {
   border: white;
 }
 .btn-clear {
-  width: 96.5%;
+  width: 100%;
   margin-top: 6px;
   height: 30px;
   border: white;
   border-radius: 5px;
-  background: var(--light-color);
+  background: darkgray;
   cursor: pointer;
 }
 .btn-more {
@@ -228,6 +228,10 @@ nav {
 
 .text-primary {
   color: var(--primary-color);
+}
+
+.text-heading {
+  color: var(--heading-color);
 }
 
 .text-dark {
