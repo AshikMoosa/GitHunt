@@ -7,7 +7,6 @@ import Users from "./components/users/Users";
 import User from "./components/users/User";
 import "./styles/App.scss";
 import Search from "./components/jobs/Search";
-import JobItem from "./components/jobs/JobItem";
 import Location from "./components/jobs/Location";
 import Job from "./components/jobs/Job";
 import Jobs from "./components/jobs/Jobs";
@@ -20,6 +19,8 @@ class App extends Component {
     jobs: [],
     loading: false,
     alert: null,
+    title: "javascript",
+    country: "gb",
   };
 
   //Display 5 random JS jobs on page load
@@ -71,15 +72,27 @@ class App extends Component {
 
   //search Jobs
   searchJobs = async (title) => {
+    const { country } = this.state;
     this.setState({ loading: true });
     const res = await axios.get(
-      `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=${title}&content-type=application/json`
+      `http://api.adzuna.com/v1/api/jobs/${country}/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=${title}&content-type=application/json`
     );
+    this.setState({ title: title });
     this.setState({ jobs: res.data.results, loading: false });
   };
 
+  //search Jobs by country
+  searchCountry = async (text) => {
+    const { title } = this.state;
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `http://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=${title}&content-type=application/json`
+    );
+    this.setState({ country: text });
+    this.setState({ jobs: res.data.results, loading: false });
+  };
   render() {
-    const { users, loading, user, alert, repos } = this.state;
+    const { users, loading, user, alert, repos, jobs } = this.state;
     return (
       <Router>
         <div className="App">
@@ -121,13 +134,14 @@ class App extends Component {
               render={(props) => (
                 <>
                   <Search searchJobs={this.searchJobs} />
-                  <Location searchCountry={this.searchCountry} />
-                  <Jobs loading={loading} jobs={this.state.jobs} />
+                  <div className="jobs-page">
+                    <Location searchCountry={this.searchCountry} />
+                    <Jobs loading={loading} jobs={jobs} />
+                  </div>
                 </>
               )}
             />
             <Route exact path="/jobs/info" component={Job} />
-            <Route exact path="/test" component={Location} />
           </Switch>
         </div>
       </Router>

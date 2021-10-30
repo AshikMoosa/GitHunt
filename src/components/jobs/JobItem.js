@@ -47,8 +47,10 @@ class JobItem extends Component {
               </p>
               <p style={{ gridColumnStart: "3" }}>
                 {"  "}
-                <FontAwesomeIcon icon={faMoneyBillWave} /> {job.salary_min} -{" "}
-                {job.salary_max}
+                <FontAwesomeIcon icon={faMoneyBillWave} />
+                {job.salary_min && job.salary_max
+                  ? " " + job.salary_min + "-" + job.salary_max
+                  : " NA "}
               </p>
             </div>
           </div>

@@ -27,7 +27,7 @@ class Search extends Component {
         />
 
         <form
-          className="form"
+          className="form search-form"
           style={{
             zIndex: "1",
             position: "absolute",
@@ -41,12 +41,12 @@ class Search extends Component {
             type="text"
             name="text"
             placeholder="Search Users..."
-            className="input input-search"
+            className="input-search"
             value={this.state.text}
             onChange={this.onChange}
             style={{
               zIndex: "1",
-              width: "90%",
+              // width: "90%",
             }}
           />
           <input

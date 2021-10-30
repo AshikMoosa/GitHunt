@@ -4,9 +4,6 @@ class Search extends Component {
   state = {
     text: "",
   };
-  // componentDidMount() {
-  //   this.props.searchJobs(this.props.match.params.results);
-  // }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -30,7 +27,7 @@ class Search extends Component {
         />
 
         <form
-          className="form"
+          className="form search-form"
           style={{
             zIndex: "1",
             position: "absolute",
@@ -43,13 +40,13 @@ class Search extends Component {
           <input
             type="text"
             name="text"
-            placeholder="Search title, companies, expertise or benefits"
-            className="input input-search"
+            placeholder="Search job title"
+            className="input-search"
             value={this.state.text}
             onChange={this.onChange}
             style={{
               zIndex: "1",
-              width: "90%",
+              //width: "90%",
             }}
           />
           <input
@@ -62,11 +59,6 @@ class Search extends Component {
             }}
           />
         </form>
-        {/* {this.props.showClear && (
-          <button className="btn-clear" onClick={this.props.clearUsers}>
-            Clear
-          </button>
-        )} */}
       </Fragment>
     );
   }

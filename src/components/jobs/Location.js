@@ -5,7 +5,28 @@ class Location extends Component {
     text: "",
   };
 
-  onChange = (e) => this.setState({ text: e.target.value });
+  onChange = (e) => {
+    let countryCodeMap = new Map([
+      ["Austria", "at"],
+      ["Australia", "au"],
+      ["United Kingdom", "gb"],
+      ["Brazil", "br"],
+      ["Canada", "ca"],
+      ["France", "fr"],
+      ["Germany", "de"],
+      ["India", "in"],
+      ["Italy", "it"],
+      ["Netherlands", "nl"],
+      ["New Zealand", "nz"],
+      ["Poland", "pl"],
+      ["Russia", "ru"],
+      ["Singapore", "sg"],
+      ["South Africa", "za"],
+      ["United States", "us"],
+    ]);
+    let countryCode = countryCodeMap.get(e.target.value);
+    this.setState({ text: countryCode });
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +60,6 @@ class Location extends Component {
             id="text"
             placeholder="Search country"
             style={{ width: "100%" }}
-            value={this.state.text}
             onChange={this.onChange}
           />
           <datalist id="locations">

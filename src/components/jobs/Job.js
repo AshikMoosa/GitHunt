@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import CompanyLogo from "../../images/jobs.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGlobeAsia,
@@ -19,8 +18,7 @@ class Job extends Component {
   render() {
     const { jobDetails } = this.props.location.state;
     return (
-      <Fragment>
-        {console.log(jobDetails)}
+      <div className="job-info">
         <div className="left">
           <Link to="/jobs" style={{ color: "#1e86ff", fontFamily: "poppins" }}>
             {" "}
@@ -45,7 +43,7 @@ class Job extends Component {
             Click here to apply to this job
           </a>
         </div>
-        <div className="right" style={{ margin: "3em 0" }}>
+        <div className="right">
           <div>
             <h2
               style={{
@@ -105,7 +103,7 @@ class Job extends Component {
             {jobDetails.description}
           </p>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

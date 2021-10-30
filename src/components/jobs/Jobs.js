@@ -1,5 +1,4 @@
 import React from "react";
-import Search from "./Search";
 import Spinner from "../layout/Spinner";
 import JobItem from "./JobItem";
 
