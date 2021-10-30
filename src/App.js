@@ -22,6 +22,15 @@ class App extends Component {
     alert: null,
   };
 
+  //Display 5 random JS jobs on page load
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const res = await axios.get(
+      `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=javascript&content-type=application/json`
+    );
+    this.setState({ jobs: res.data.results, loading: false });
+  }
+
   //Search Users
   searchUsers = async (text) => {
     this.setState({ loading: true });
@@ -62,7 +71,6 @@ class App extends Component {
 
   //search Jobs
   searchJobs = async (title) => {
-    // console.log(title);
     this.setState({ loading: true });
     const res = await axios.get(
       `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=${title}&content-type=application/json`
@@ -113,11 +121,13 @@ class App extends Component {
               render={(props) => (
                 <>
                   <Search searchJobs={this.searchJobs} />
+                  <Location searchCountry={this.searchCountry} />
                   <Jobs loading={loading} jobs={this.state.jobs} />
                 </>
               )}
             />
             <Route exact path="/jobs/info" component={Job} />
+            <Route exact path="/test" component={Location} />
           </Switch>
         </div>
       </Router>
