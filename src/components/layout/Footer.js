@@ -11,6 +11,7 @@ class Footer extends Component {
           right: "0",
           bottom: "0",
           background: "none",
+          fontFamily: "poppins",
         }}
       >
         <h3>&copy; GitHunt 2021 </h3>

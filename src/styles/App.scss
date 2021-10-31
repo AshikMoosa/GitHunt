@@ -216,6 +216,10 @@ nav {
   color: #333;
 }
 
+.alert.alert-undefined {
+  display: none;
+}
+
 .card {
   padding: 1rem;
   border: #ccc 1px dotted;

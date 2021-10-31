@@ -1,67 +1,70 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import JobsImage from "../../images/jobs.png";
-class Search extends Component {
-  state = {
-    text: "",
-  };
+import JobContext from "../../context/job/jobContext";
+import AlertContext from "../../context/alert/alertContext";
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+const Search = () => {
+  const jobContext = useContext(JobContext);
+  const alertContext = useContext(AlertContext);
 
-  onSubmit = (e) => {
+  const { searchJobs } = jobContext;
+  const { setAlert } = alertContext;
+
+  const [text, setText] = useState("");
+
+  const onChange = (e) => setText(e.target.value);
+
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text === "") {
-      this.props.setAlert("Please enter something", "light");
+    if (text === "") {
+      setAlert("Please enter something", "light");
     } else {
-      this.props.searchJobs(this.state.text);
-      this.setState({ text: "" });
+      searchJobs(text);
+      setText("");
     }
   };
+  return (
+    <Fragment>
+      <img
+        style={{ width: "100%", height: "180px" }}
+        src={JobsImage}
+        alt="User Background.."
+      />
 
-  render() {
-    return (
-      <Fragment>
-        <img
-          style={{ width: "100%", height: "180px" }}
-          src={JobsImage}
-          alt="User Background.."
-        />
-
-        <form
-          className="form search-form"
+      <form
+        className="form search-form"
+        style={{
+          zIndex: "1",
+          position: "absolute",
+          top: "12em",
+          width: "90%",
+          left: "9%",
+        }}
+        onSubmit={onSubmit}
+      >
+        <input
+          type="text"
+          name="text"
+          placeholder="Search job title..."
+          className="input-search"
+          value={text}
+          onChange={onChange}
           style={{
             zIndex: "1",
-            position: "absolute",
-            top: "12em",
-            width: "90%",
-            left: "9%",
           }}
-          onSubmit={this.onSubmit}
-        >
-          <input
-            type="text"
-            name="text"
-            placeholder="Search job title"
-            className="input-search"
-            value={this.state.text}
-            onChange={this.onChange}
-            style={{
-              zIndex: "1",
-              //width: "90%",
-            }}
-          />
-          <input
-            type="submit"
-            value="Search"
-            className="btn btn-search"
-            style={{
-              zIndex: "1",
-              cursor: "pointer",
-            }}
-          />
-        </form>
-      </Fragment>
-    );
-  }
-}
+        />
+        <input
+          type="submit"
+          value="Search"
+          className="btn btn-search"
+          style={{
+            zIndex: "1",
+            cursor: "pointer",
+          }}
+        />
+      </form>
+    </Fragment>
+  );
+};
 
 export default Search;

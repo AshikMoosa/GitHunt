@@ -1,72 +1,73 @@
-import React, { Component, Fragment } from "react";
+import React, { useState, Fragment, useContext } from "react";
 import UserImage from "../../images/user.jpg";
-class Search extends Component {
-  state = {
-    text: "",
-  };
+import GithubContext from "../../context/github/githubContext";
+import AlertContext from "../../context/alert/alertContext";
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+const Search = () => {
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
 
-  onSubmit = (e) => {
+  const [text, setText] = useState("");
+
+  const onChange = (e) => setText(e.target.value);
+
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text === "") {
-      this.props.setAlert("Please enter something", "light");
+    if (text === "") {
+      alertContext.setAlert("Please enter something", "light");
     } else {
-      this.props.searchUsers(this.state.text);
-      this.setState({ text: "" });
+      githubContext.searchUsers(text);
+      setText("");
     }
   };
 
-  render() {
-    return (
-      <Fragment>
-        <img
-          style={{ width: "100%", height: "180px" }}
-          src={UserImage}
-          alt="User Background.."
-        />
+  return (
+    <Fragment>
+      <img
+        style={{ width: "100%", height: "180px" }}
+        src={UserImage}
+        alt="User Background.."
+      />
 
-        <form
-          className="form search-form"
+      <form
+        className="form search-form"
+        style={{
+          zIndex: "1",
+          position: "absolute",
+          top: "12em",
+          width: "90%",
+          left: "9%",
+        }}
+        onSubmit={onSubmit}
+      >
+        <input
+          type="text"
+          name="text"
+          placeholder="Search github users..."
+          className="input-search"
+          value={text}
+          onChange={onChange}
           style={{
             zIndex: "1",
-            position: "absolute",
-            top: "12em",
-            width: "90%",
-            left: "9%",
           }}
-          onSubmit={this.onSubmit}
-        >
-          <input
-            type="text"
-            name="text"
-            placeholder="Search Users..."
-            className="input-search"
-            value={this.state.text}
-            onChange={this.onChange}
-            style={{
-              zIndex: "1",
-              // width: "90%",
-            }}
-          />
-          <input
-            type="submit"
-            value="Search"
-            className="btn btn-search"
-            style={{
-              zIndex: "1",
-              cursor: "pointer",
-            }}
-          />
-        </form>
-        {this.props.showClear && (
-          <button className="btn-clear" onClick={this.props.clearUsers}>
-            Clear
-          </button>
-        )}
-      </Fragment>
-    );
-  }
-}
+        />
+        <input
+          type="submit"
+          value="Search"
+          className="btn btn-search"
+          style={{
+            zIndex: "1",
+            cursor: "pointer",
+          }}
+        />
+      </form>
+      {githubContext.users.length > 0 && (
+        <button className="btn-clear" onClick={githubContext.clearUsers}>
+          Clear
+        </button>
+      )}
+    </Fragment>
+  );
+};
 
 export default Search;

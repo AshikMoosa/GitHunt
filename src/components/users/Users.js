@@ -1,29 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import Search from "./Search";
 import UserItem from "./UserItem";
 import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
-const Users = ({
-  users,
-  loading,
-  searchUsers,
-  clearUsers,
-  showClear,
-  setAlert,
-  alert,
-}) => {
+import GithubContext from "../../context/github/githubContext";
+import AlertContext from "../../context/alert/alertContext";
+
+const Users = () => {
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
+  const { loading, users } = githubContext;
+  const { alert, setAlert } = alertContext;
   if (loading) {
     return <Spinner />;
   } else {
     return (
       <>
-        <Search
-          searchUsers={searchUsers}
-          clearUsers={clearUsers}
-          showClear={showClear}
-          setAlert={setAlert}
-        />
-        <Alert alert={alert} />
+        <Search />
+        <Alert />
         <div className="container">
           <div style={userStyle}>
             {users.map((user) => {
