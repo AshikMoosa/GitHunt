@@ -17,19 +17,6 @@ import AlertState from "./context/alert/AlertState";
 import JobState from "./context/job/JobState";
 
 const App = () => {
-  //Display 5 random JS jobs on page load
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     const res = await axios.get(
-  //       `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${process.env.REACT_APP_ADZUNA_CLIENT_ID}&app_key=${process.env.REACT_APP_ADZUNA_CLIENT_KEY}&results_per_page=5&what=javascript&content-type=application/json`
-  //     );
-  //     setJobs(res.data.results);
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
-
   return (
     <GithubState>
       <AlertState>
