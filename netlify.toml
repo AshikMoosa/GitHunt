@@ -14,8 +14,6 @@
     [headers.values]
     Access-Control-Allow-Origin = "*"
 
-/jobs/* http://api.adzuna.com/v1/api/:splat 200
-
 [[redirects]]
   from = "/jobs"
   to = "http://api.adzuna.com/v1/api/:splat"
