@@ -36,7 +36,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `/jobs/&results_per_page=5&what=javascript&content-type=application/json`
+        `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
@@ -50,8 +50,7 @@ const JobState = (props) => {
   const searchJobs = async (title) => {
     setLoading();
     const res = await axios.get(
-      `/jobs/&results_per_page=5&what=javascript&content-type=application/json`
-      //`/jobs/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
+      `https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
     );
     setTitle(title);
     dispatch({
@@ -64,8 +63,7 @@ const JobState = (props) => {
   const searchCountry = async (text) => {
     setLoading();
     const res = await axios.get(
-      `/jobs/&results_per_page=5&what=javascript&content-type=application/json`
-      //`/jobs/jobs/${text}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${state.title}&content-type=application/json`
+      `https://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${state.title}&content-type=application/json`
     );
 
     setCountry(text);
