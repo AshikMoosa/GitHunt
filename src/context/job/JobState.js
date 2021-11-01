@@ -36,7 +36,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `/jobs/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
+        `/jobs&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
