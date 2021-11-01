@@ -36,7 +36,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `/jobs&results_per_page=5&what=javascript&content-type=application/json`
+        `/jobs/&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
