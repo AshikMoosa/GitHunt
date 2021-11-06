@@ -33,16 +33,35 @@ const JobState = (props) => {
 
   //Display 5 random JS jobs on page load
   useEffect(() => {
-    const fetchData = async () => {
+    function fetchData() {
       setLoading();
-      const res = await axios.get(
-        `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
-      );
-      dispatch({
-        type: GET_JOBS,
-        payload: res.data.results,
-      });
-    };
+
+      fetch(
+        "https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=javascript%20developer&content-type=application/json",
+        {
+          method: "GET", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then(function (res) {
+          return res.json();
+        })
+        .then((data) => {
+          dispatch({
+            type: GET_JOBS,
+            payload: data.results,
+          });
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     fetchData();
   }, []);
 
@@ -50,7 +69,8 @@ const JobState = (props) => {
   const searchJobs = async (title) => {
     setLoading();
     const res = await axios.get(
-      `https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
+      `https://www.themuse.com/api/public/jobs?page=1`
+      // `https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
     );
     setTitle(title);
     dispatch({

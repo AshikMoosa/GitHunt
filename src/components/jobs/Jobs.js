@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Spinner from "../layout/Spinner";
 import JobItem from "./JobItem";
 import JobContext from "../../context/job/jobContext";
@@ -6,17 +6,16 @@ import JobContext from "../../context/job/jobContext";
 const Jobs = () => {
   const jobContext = useContext(JobContext);
   const { loading, jobs } = jobContext;
+
   if (loading) {
     return <Spinner />;
   } else {
     return (
       <>
         <div className="container" style={{ fontFamily: "roboto" }}>
-          <div>
-            {jobs.map((job) => {
-              return <JobItem key={job.id} job={job} />;
-            })}
-          </div>
+          {jobs.map((job) => {
+            return <JobItem key={job.id} job={job} />;
+          })}
         </div>
       </>
     );

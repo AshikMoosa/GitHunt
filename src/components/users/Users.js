@@ -8,9 +8,7 @@ import AlertContext from "../../context/alert/alertContext";
 
 const Users = () => {
   const githubContext = useContext(GithubContext);
-  const alertContext = useContext(AlertContext);
   const { loading, users } = githubContext;
-  const { alert, setAlert } = alertContext;
   if (loading) {
     return <Spinner />;
   } else {
