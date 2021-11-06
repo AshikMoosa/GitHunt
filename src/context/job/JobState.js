@@ -40,7 +40,7 @@ const JobState = (props) => {
         "https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=javascript%20developer&content-type=application/json",
         {
           method: "GET", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
+          mode: "no-cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
           credentials: "same-origin", // include, *same-origin, omit
           headers: {
