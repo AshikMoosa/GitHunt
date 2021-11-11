@@ -33,43 +33,55 @@ const JobState = (props) => {
 
   //Display 5 random JS jobs on page load
   useEffect(() => {
-    function fetchData() {
+    const fetchData = async () => {
       setLoading();
-
-      fetch(
-        `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`,
-        {
-          method: "GET", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then(function (res) {
-          return res.json();
-        })
-        .then((data) => {
-          dispatch({
-            type: GET_JOBS,
-            payload: data.results,
-          });
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+      const res = await axios.get(
+        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
+      );
+      dispatch({
+        type: GET_JOBS,
+        payload: res.data.results,
+      });
+    };
     fetchData();
   }, []);
+  // useEffect(() => {
+  //   function fetchData() {
+  //     setLoading();
+  //     fetch(
+  //       `https://cors.bridged.cc/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`,
+  //       {
+  //         method: "GET", // *GET, POST, PUT, DELETE, etc.
+  //         mode: "no-cors", // no-cors, *cors, same-origin
+  //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  //         credentials: "same-origin", // include, *same-origin, omit
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     )
+  //       .then(function (res) {
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         dispatch({
+  //           type: GET_JOBS,
+  //           payload: data.results,
+  //         });
+  //         console.log(data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  //   fetchData();
+  // }, []);
 
   //search Jobs
   const searchJobs = async (title) => {
     setLoading();
     const res = await axios.get(
-      `https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
+      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
     );
     setTitle(title);
     dispatch({
@@ -82,7 +94,7 @@ const JobState = (props) => {
   const searchCountry = async (text) => {
     setLoading();
     const res = await axios.get(
-      `https://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${state.title}&content-type=application/json`
+      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${state.title}&content-type=application/json`
     );
 
     setCountry(text);
