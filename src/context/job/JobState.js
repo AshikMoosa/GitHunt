@@ -4,22 +4,21 @@ import JobContext from "./jobContext";
 import JobReducer from "./jobReducer";
 import {
   SEARCH_JOBS,
-  SEARCH_COUNTRY,
   SET_TITLE,
   SET_LOADING,
   SET_COUNTRY,
   GET_JOBS,
 } from "../types";
 
-let adzunaClientId;
-let adzunaClientSecret;
-if (process.env.NODE_ENV !== "production") {
-  adzunaClientId = process.env.REACT_APP_ADZUNA_CLIENT_ID;
-  adzunaClientSecret = process.env.REACT_APP_ADZUNA_CLIENT_SECRET;
-} else {
-  adzunaClientId = process.env.ADZUNA_CLIENT_ID;
-  adzunaClientSecret = process.env.ADZUNA_CLIENT_SECRET;
-}
+// let adzunaClientId;
+// let adzunaClientSecret;
+// if (process.env.NODE_ENV !== "production") {
+//   adzunaClientId = process.env.REACT_APP_ADZUNA_CLIENT_ID;
+//   adzunaClientSecret = process.env.REACT_APP_ADZUNA_CLIENT_SECRET;
+// } else {
+//   adzunaClientId = process.env.ADZUNA_CLIENT_ID;
+//   adzunaClientSecret = process.env.ADZUNA_CLIENT_SECRET;
+// }
 
 const JobState = (props) => {
   const initialState = {
@@ -36,7 +35,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
+        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
@@ -50,7 +49,7 @@ const JobState = (props) => {
   const searchJobs = async (title) => {
     setLoading();
     const res = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${title}&content-type=application/json`
+      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${state.country}/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=${title}&content-type=application/json`
     );
     setTitle(title);
     dispatch({
@@ -63,7 +62,7 @@ const JobState = (props) => {
   const searchCountry = async (text) => {
     setLoading();
     const res = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=${state.title}&content-type=application/json`
+      `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/${text}/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=${state.title}&content-type=application/json`
     );
 
     setCountry(text);

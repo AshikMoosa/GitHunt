@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Spinner from "../layout/Spinner";
 import JobItem from "./JobItem";
 import JobContext from "../../context/job/jobContext";

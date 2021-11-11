@@ -4,7 +4,6 @@ import UserItem from "./UserItem";
 import Spinner from "../layout/Spinner";
 import Alert from "../layout/Alert";
 import GithubContext from "../../context/github/githubContext";
-import AlertContext from "../../context/alert/alertContext";
 
 const Users = () => {
   const githubContext = useContext(GithubContext);

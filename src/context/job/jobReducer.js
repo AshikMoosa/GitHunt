@@ -7,7 +7,7 @@ import {
   GET_JOBS,
 } from "../types";
 
-export default (state, action) => {
+const jobReducer = (state, action) => {
   switch (action.type) {
     case SEARCH_COUNTRY:
       return {
@@ -46,3 +46,5 @@ export default (state, action) => {
       return state;
   }
 };
+
+export default jobReducer;

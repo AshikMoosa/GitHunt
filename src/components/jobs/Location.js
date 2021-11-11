@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import JobContext from "../../context/job/jobContext";
 import AlertContext from "../../context/alert/alertContext";
 
