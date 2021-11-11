@@ -30,7 +30,7 @@ const Location = () => {
     let countryCode = countryCodeMap.get(e.target.value);
     setText(countryCode);
   };
-
+  const onClick = () => {};
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
@@ -57,33 +57,50 @@ const Location = () => {
         <h3 style={{ fontFamily: "poppins", color: "rgb(185, 189, 207)" }}>
           Location
         </h3>
-
-        <input
-          list="locations"
-          name="text"
-          id="text"
-          placeholder="Search country"
-          style={{ width: "100%" }}
-          onChange={onChange}
-        />
-        <datalist id="locations">
-          <option value="Austria" />
-          <option value="Australia" />
-          <option value="Brazil" />
-          <option value="Canada" />
-          <option value="France" />
-          <option value="Germany" />
-          <option value="India" />
-          <option value="Italy" />
-          <option value="Netherlands" />
-          <option value="New Zealand" />
-          <option value="Poland" />
-          <option value="Russia" />
-          <option value="Singapore" />
-          <option value="South Africa" />
-          <option value="United Kingdom" />
-          <option value="United States" />
-        </datalist>
+        <div
+          style={{
+            display: "flex",
+            border: "1px solid black",
+            borderRadius: "5px",
+          }}
+        >
+          <input
+            list="locations"
+            name="text"
+            id="text"
+            placeholder="Search country"
+            style={{ width: "100%" }}
+            onChange={onChange}
+          />
+          <input
+            type="submit"
+            value="Search"
+            className="btn btn-dark"
+            style={{
+              zIndex: "1",
+              cursor: "pointer",
+              height: "59px",
+            }}
+          />
+          <datalist id="locations">
+            <option value="Austria" />
+            <option value="Australia" />
+            <option value="Brazil" />
+            <option value="Canada" />
+            <option value="France" />
+            <option value="Germany" />
+            <option value="India" />
+            <option value="Italy" />
+            <option value="Netherlands" />
+            <option value="New Zealand" />
+            <option value="Poland" />
+            <option value="Russia" />
+            <option value="Singapore" />
+            <option value="South Africa" />
+            <option value="United Kingdom" />
+            <option value="United States" />
+          </datalist>
+        </div>
         {/* <div
             style={{
               display: "grid",
