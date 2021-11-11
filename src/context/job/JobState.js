@@ -36,7 +36,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
+        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
