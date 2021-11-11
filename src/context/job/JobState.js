@@ -15,10 +15,10 @@ let adzunaClientId;
 let adzunaClientSecret;
 if (process.env.NODE_ENV !== "production") {
   adzunaClientId = process.env.REACT_APP_ADZUNA_CLIENT_ID;
-  adzunaClientSecret = process.env.REACT_APP_ADZUNA_CLIENT_KEY;
+  adzunaClientSecret = process.env.REACT_APP_ADZUNA_CLIENT_SECRET;
 } else {
   adzunaClientId = process.env.ADZUNA_CLIENT_ID;
-  adzunaClientSecret = process.env.ADZUNA_CLIENT_KEY;
+  adzunaClientSecret = process.env.ADZUNA_CLIENT_SECRET;
 }
 
 const JobState = (props) => {
@@ -36,7 +36,7 @@ const JobState = (props) => {
     const fetchData = async () => {
       setLoading();
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=8beb9fd1&app_key=d88f79a8d4e89d90bbb91971191c9c3f&results_per_page=5&what=javascript&content-type=application/json`
+        `https://cors-anywhere.herokuapp.com/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`
       );
       dispatch({
         type: GET_JOBS,
@@ -45,37 +45,6 @@ const JobState = (props) => {
     };
     fetchData();
   }, []);
-  // useEffect(() => {
-  //   function fetchData() {
-  //     setLoading();
-  //     fetch(
-  //       `https://cors.bridged.cc/https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${adzunaClientId}&app_key=${adzunaClientSecret}&results_per_page=5&what=javascript&content-type=application/json`,
-  //       {
-  //         method: "GET", // *GET, POST, PUT, DELETE, etc.
-  //         mode: "no-cors", // no-cors, *cors, same-origin
-  //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //         credentials: "same-origin", // include, *same-origin, omit
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //       .then(function (res) {
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         dispatch({
-  //           type: GET_JOBS,
-  //           payload: data.results,
-  //         });
-  //         console.log(data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  //   fetchData();
-  // }, []);
 
   //search Jobs
   const searchJobs = async (title) => {
